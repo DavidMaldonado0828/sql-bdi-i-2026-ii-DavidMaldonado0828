@@ -1,88 +1,75 @@
 erDiagram
-  FACULTIES {
-    int id PK
+  Faculties {
+    int faculty_id PK
     varchar name
   }
-
-  CAREERS {
-    int id PK
+  Programs {
+    int program_id PK
     varchar name
-    int id_faculty FK
+    int faculty_id FK
   }
-
-  COURSES {
-    int id PK
+  Courses {
+    int course_id PK
     varchar name
-    int id_faculty FK
+    int faculty_id FK
   }
-
-  SCHEDULES {
-    int id PK
+  Schedules {
+    int schedule_id PK
     varchar day
     varchar start_time
     varchar end_time
   }
-
-  BUILDINGS {
-    int id PK
+  Buildings {
+    int building_id PK
     varchar name
   }
-
-  CLASSROOMS {
-    int id PK
+  Classrooms {
+    int classroom_id PK
     varchar name
-    int id_building FK
+    int building_id FK
   }
-
-  ROLES {
-    int id PK
+  Roles {
+    int role_id PK
     varchar name
   }
-
-  USERS {
-    int id PK
-    varchar name
+  Users {
+    int user_id PK
+    varchar first_name
     varchar last_name
-    int id_role FK
+    int role_id FK
   }
-
-  COURSE_SCHEDULE {
-    int id PK
-    int id_course FK
-    int id_schedule FK
-    int id_classroom FK
-    int id_professor FK
+  Course_Offerings {
+    int course_offering_id PK
+    int course_id FK
+    int schedule_id FK
+    int classroom_id FK
+    int professor_id FK
     int capacity
   }
-
-  COURSES_CAREERS {
-    int id_course FK, PK
-    int id_career FK, PK
+  Programs_Courses {
+    int program_id FK
+    int course_id FK
     int curriculum_semester
   }
-
-  CAREERS_STUDENTS {
-    int id_career FK, PK
-    int id_user FK, PK
+  Programs_Students {
+    int program_id FK
+    int user_id FK
     int current_semester
   }
-
-  COURSES_STUDENTS {
-    int id_course_schedule FK, PK
-    int id_user FK, PK
+  Enrollments {
+    int course_offering_id FK
+    int user_id FK
   }
-
-  FACULTIES ||--o{ COURSES : "defines"
-  FACULTIES ||--o{ CAREERS : "offers"
-  CAREERS ||--o{ COURSES_CAREERS : "has"
-  COURSES ||--o{ COURSES_CAREERS : "belongs"
-  COURSES ||--o{ COURSE_SCHEDULE : "scheduled"
-  SCHEDULES ||--o{ COURSE_SCHEDULE : "contains"
-  CLASSROOMS ||--o{ COURSE_SCHEDULE : "hosts"
-  USERS ||--o{ COURSE_SCHEDULE : "teaches"
-  ROLES ||--o{ USERS : "defines"
-  CAREERS ||--o{ CAREERS_STUDENTS : "enrolls"
-  USERS ||--o{ CAREERS_STUDENTS : "joins"
-  COURSE_SCHEDULE ||--o{ COURSES_STUDENTS : "has"
-  USERS ||--o{ COURSES_STUDENTS : "takes"
-  BUILDINGS ||--o{ CLASSROOMS : "contains"
+  Faculties ||--o{ Programs : has
+  Faculties ||--o{ Courses : offers
+  Programs ||--o{ Programs_Courses : includes
+  Courses ||--o{ Programs_Courses : belongs
+  Courses ||--o{ Course_Offerings : schedules
+  Schedules ||--o{ Course_Offerings : defines
+  Classrooms ||--o{ Course_Offerings : assigns
+  Buildings ||--o{ Classrooms : contains
+  Roles ||--o{ Users : classifies
+  Users ||--o{ Programs_Students : enrolled
+  Programs ||--o{ Programs_Students : has
+  Users ||--o{ Enrollments : takes
+  Course_Offerings ||--o{ Enrollments : registers
