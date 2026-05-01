@@ -5,7 +5,7 @@
 -- RUN IN POSTGRES - POSTGRES
 
 -- 01. Create user
-CREATE USER univ_admin WITH PASSWORD 'xl.2026upbda!!';
+CREATE USER univ_admin WITH PASSWORD '*';
 
 -- 02. Create database (with ENCODING= 'UTF8', TEMPLATE=Template0, OWNER: music_admin)
 CREATE DATABASE universitydb WITH 
