@@ -28,7 +28,7 @@ def parse_arguments():
     parser.add_argument('--user', required=True, help='PostgreSQL username')
     parser.add_argument('--password', required=True, help='PostgreSQL password')
     parser.add_argument('--host', default='localhost', help='PostgreSQL host (default: localhost)')
-    parser.add_argument('--port', default=5433, type=int, help='PostgreSQL port (default: 5433)')
+    parser.add_argument('--port', default=5432, type=int, help='PostgreSQL port (default: 5433)')
     parser.add_argument('--database', default='smarthdb', help='Target database name (default: smarthdb)')
     parser.add_argument('--create-script', default=False, help='Create database if its necessary.')
     return parser.parse_args()
